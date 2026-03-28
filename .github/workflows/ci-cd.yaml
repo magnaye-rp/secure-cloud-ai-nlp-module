@@ -1,0 +1,17 @@
+name: CI/CD - Build & Push
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build & push Docker image
+      uses: docker/build-push-action@v6
+      with:
+        context: ./app
+        push: true
+        tags: ${{ github.repository_owner }}/secure-cloud-ai-nlp-module:latest

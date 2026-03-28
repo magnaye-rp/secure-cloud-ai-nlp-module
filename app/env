@@ -1,0 +1,5 @@
+# === CIA CONFIDENTIALITY - NEVER COMMIT THIS FILE ===
+API_KEY=your-super-secret-dev-key-change-this-in-production
+
+# Optional: limit requests per minute per IP
+RATE_LIMIT=60/minute

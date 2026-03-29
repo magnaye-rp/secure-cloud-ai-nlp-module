@@ -24,4 +24,4 @@ jobs:
       with:
         context: ./app
         push: true
-        tags: { secrets.DOCKERHUB_USERNAME }/secure-cloud-ai-nlp-module:latest
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/secure-cloud-ai-nlp-module:latest

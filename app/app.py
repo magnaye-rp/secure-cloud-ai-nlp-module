@@ -266,8 +266,7 @@ def chat_api():
         # Audit log (hashed — no PII stored)
         request_hash = hashlib.sha256(user_text.encode()).hexdigest()[:12]
         logging.info(
-            f"[CHAT] IP={request.remote_addr} | Hash={request_hash} | "
-            f"Msg='{user_text[:50]}{'...' if len(user_text) > 50 else ''}'"
+            f"[CHAT] IP={request.remote_addr} | Hash={request_hash}"
         )
 
         # Predict

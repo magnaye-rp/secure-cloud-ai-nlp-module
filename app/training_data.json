@@ -1,0 +1,80 @@
+{
+  "intents": [
+    {
+      "intent": "greeting",
+      "patterns": [
+        "Hello",
+        "Hi there",
+        "Hey",
+        "Good morning",
+        "Good evening",
+        "Howdy",
+        "What's up"
+      ],
+      "responses": [
+        "Hello! How can I help you today?",
+        "Hi there! What can I do for you?",
+        "Hey! Great to see you. How can I assist?"
+      ]
+    },
+    {
+      "intent": "goodbye",
+      "patterns": [
+        "Bye",
+        "Goodbye",
+        "See you later",
+        "Take care",
+        "I'm done",
+        "That's all for now"
+      ],
+      "responses": [
+        "Goodbye! Have a great day!",
+        "See you later! Take care.",
+        "Bye! Feel free to come back anytime."
+      ]
+    },
+    {
+      "intent": "thanks",
+      "patterns": [
+        "Thank you",
+        "Thanks a lot",
+        "That was helpful",
+        "Appreciate it",
+        "Thanks!"
+      ],
+      "responses": [
+        "You're welcome!",
+        "Happy to help!",
+        "Anytime! Let me know if you need anything else."
+      ]
+    },
+    {
+      "intent": "hours",
+      "patterns": [
+        "What are your hours?",
+        "When are you open?",
+        "What time do you close?",
+        "Are you open on weekends?"
+      ],
+      "responses": [
+        "We're open Monday to Friday, 9am to 5pm.",
+        "Our office hours are 9am–5pm on weekdays."
+      ]
+    },
+    {
+      "intent": "help",
+      "patterns": [
+        "I need help",
+        "Can you help me?",
+        "Help me please",
+        "I have a question",
+        "I'm confused"
+      ],
+      "responses": [
+        "Of course! What do you need help with?",
+        "Sure, I'm here to help. What's your question?",
+        "I'll do my best to help. Go ahead!"
+      ]
+    }
+  ]
+}

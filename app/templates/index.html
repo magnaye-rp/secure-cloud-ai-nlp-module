@@ -6,7 +6,7 @@
     <title>Secure Assistant</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after {
             margin: 0;
@@ -15,125 +15,102 @@
         }
 
         :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #12121a;
-            --bg-tertiary: #1a1a24;
-            --bg-card: rgba(26, 26, 36, 0.8);
-            --accent-primary: #6366f1;
-            --accent-secondary: #818cf8;
-            --accent-glow: rgba(99, 102, 241, 0.4);
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --text-muted: #64748b;
-            --border-subtle: rgba(255, 255, 255, 0.06);
-            --border-hover: rgba(255, 255, 255, 0.1);
-            --success: #22c55e;
-            --error: #ef4444;
+            --bg: #f7f6f3;
+            --surface: #ffffff;
+            --surface-alt: #f2f1ee;
+            --border: #e8e6e1;
+            --border-strong: #d4d0c8;
+            --text: #1a1916;
+            --text-secondary: #6b6760;
+            --text-muted: #a09c94;
+            --accent: #1a1916;
+            --accent-light: #2d2b27;
+            --user-bubble: #1a1916;
+            --user-text: #f7f6f3;
+            --success: #3d7a5a;
+            --error-bg: #fdf3f2;
+            --error-border: #e8c9c5;
+            --error-text: #8b3a34;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+        }
+
+        html, body {
+            height: 100%;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-primary);
+            font-family: 'DM Sans', system-ui, sans-serif;
+            background: var(--bg);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 24px;
-            color: var(--text-primary);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Ambient background */
+        /* Subtle texture */
         body::before {
             content: '';
             position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background:
-                radial-gradient(ellipse at 20% 20%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(129, 140, 248, 0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(99, 102, 241, 0.03) 0%, transparent 70%);
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 30% 20%, rgba(180,175,165,0.12) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(160,155,145,0.08) 0%, transparent 50%);
             pointer-events: none;
-            z-index: -1;
+            z-index: 0;
         }
 
         .chat-container {
+            position: relative;
+            z-index: 1;
             width: 100%;
-            max-width: 440px;
-            height: 88vh;
-            max-height: 760px;
-            background: var(--bg-secondary);
-            border-radius: 28px;
+            max-width: 480px;
+            height: 90vh;
+            max-height: 780px;
+            background: var(--surface);
+            border-radius: 20px;
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            border: 1px solid var(--border-subtle);
-            box-shadow:
-                0 0 0 1px rgba(255, 255, 255, 0.02),
-                0 25px 50px -12px rgba(0, 0, 0, 0.6),
-                0 0 100px -20px rgba(99, 102, 241, 0.15);
-            animation: containerFadeIn 0.6s ease-out;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-md), 0 20px 60px rgba(0,0,0,0.06);
+            animation: rise 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        @keyframes containerFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px) scale(0.98);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
+        @keyframes rise {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* Header */
+        /* ── Header ── */
         .header {
-            padding: 20px 24px;
-            background: linear-gradient(180deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
-            border-bottom: 1px solid var(--border-subtle);
+            padding: 20px 24px 18px;
+            border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
             gap: 14px;
+            background: var(--surface);
         }
 
-        .header-icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, var(--accent-primary) 0%, #7c3aed 100%);
-            border-radius: 16px;
+        .header-mark {
+            width: 36px;
+            height: 36px;
+            background: var(--accent);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow:
-                0 4px 12px rgba(99, 102, 241, 0.35),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            position: relative;
-            overflow: hidden;
+            flex-shrink: 0;
         }
 
-        .header-icon::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%);
-            animation: shimmer 3s ease-in-out infinite;
-        }
-
-        @keyframes shimmer {
-            0%, 100% { transform: translateX(-100%) rotate(45deg); }
-            50% { transform: translateX(100%) rotate(45deg); }
-        }
-
-        .header-icon svg {
-            width: 24px;
-            height: 24px;
-            color: white;
-            position: relative;
-            z-index: 1;
+        .header-mark svg {
+            width: 18px;
+            height: 18px;
+            color: var(--bg);
         }
 
         .header-content {
@@ -141,247 +118,205 @@
         }
 
         .header-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-primary);
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text);
             letter-spacing: -0.01em;
         }
 
-        .header-subtitle {
+        .header-status {
             font-size: 12px;
             color: var(--text-muted);
-            margin-top: 3px;
+            margin-top: 2px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
+            font-weight: 300;
         }
 
-        .status-dot {
-            width: 7px;
-            height: 7px;
+        .status-indicator {
+            width: 6px;
+            height: 6px;
             background: var(--success);
             border-radius: 50%;
-            box-shadow: 0 0 8px var(--success);
-            animation: statusPulse 2s ease-in-out infinite;
+            animation: pulse 3s ease-in-out infinite;
         }
 
-        @keyframes statusPulse {
-            0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--success); }
-            50% { opacity: 0.6; box-shadow: 0 0 4px var(--success); }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.45; }
         }
 
-        /* Auth Section */
+        /* ── Auth ── */
         .auth-section {
-            padding: 16px 20px;
-            background: rgba(0, 0, 0, 0.2);
-            border-bottom: 1px solid var(--border-subtle);
+            padding: 14px 24px;
+            background: var(--surface-alt);
+            border-bottom: 1px solid var(--border);
         }
 
         .auth-label {
             font-size: 10px;
-            font-weight: 600;
+            font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.1em;
             color: var(--text-muted);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
         }
 
         .auth-label svg {
-            width: 12px;
-            height: 12px;
+            width: 11px;
+            height: 11px;
         }
 
         .auth-input {
             width: 100%;
-            background: var(--bg-primary);
-            border: 1px solid var(--border-subtle);
-            border-radius: 12px;
-            padding: 14px 16px;
-            color: var(--text-primary);
-            font-size: 14px;
-            font-family: inherit;
-            transition: all 0.25s ease;
+            background: var(--surface);
+            border: 1px solid var(--border-strong);
+            border-radius: 10px;
+            padding: 11px 14px;
+            color: var(--text);
+            font-size: 13px;
+            font-family: 'DM Mono', monospace;
+            font-weight: 300;
+            letter-spacing: 0.04em;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
         .auth-input:focus {
             outline: none;
-            border-color: var(--accent-primary);
-            box-shadow:
-                0 0 0 3px rgba(99, 102, 241, 0.12),
-                0 0 20px rgba(99, 102, 241, 0.1);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(26,25,22,0.07);
         }
 
         .auth-input::placeholder {
             color: var(--text-muted);
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 300;
+            letter-spacing: 0;
         }
 
-        /* Messages */
+        /* ── Messages ── */
         .messages {
             flex: 1;
-            padding: 20px;
+            padding: 20px 24px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 12px;
             scroll-behavior: smooth;
-            background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.1) 100%);
         }
 
-        .messages::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .messages::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
+        .messages::-webkit-scrollbar { width: 4px; }
+        .messages::-webkit-scrollbar-track { background: transparent; }
         .messages::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 3px;
-        }
-
-        .messages::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.12);
+            background: var(--border-strong);
+            border-radius: 2px;
         }
 
         .msg {
-            max-width: 82%;
-            padding: 14px 18px;
-            border-radius: 20px;
+            max-width: 78%;
+            padding: 11px 16px;
+            border-radius: 14px;
             font-size: 14px;
-            line-height: 1.6;
-            animation: messageSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
+            line-height: 1.55;
+            font-weight: 300;
+            animation: msgIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        @keyframes messageSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(12px) scale(0.96);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
+        @keyframes msgIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
         .user-msg {
             align-self: flex-end;
-            background: linear-gradient(135deg, var(--accent-primary) 0%, #7c3aed 100%);
-            color: white;
-            border-bottom-right-radius: 6px;
-            box-shadow:
-                0 4px 15px rgba(99, 102, 241, 0.35),
-                0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+            background: var(--user-bubble);
+            color: var(--user-text);
+            border-bottom-right-radius: 4px;
+            font-weight: 400;
         }
 
         .bot-msg {
             align-self: flex-start;
-            background: var(--bg-card);
-            color: var(--text-primary);
-            border: 1px solid var(--border-subtle);
-            border-bottom-left-radius: 6px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+            background: var(--surface-alt);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-bottom-left-radius: 4px;
         }
 
         .bot-msg.error {
-            background: rgba(239, 68, 68, 0.12);
-            border-color: rgba(239, 68, 68, 0.2);
-            color: #fca5a5;
+            background: var(--error-bg);
+            border-color: var(--error-border);
+            color: var(--error-text);
         }
 
-        /* Typing Indicator */
+        /* ── Typing ── */
         .typing-indicator {
             display: none;
             align-self: flex-start;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 20px;
-            border-bottom-left-radius: 6px;
-            padding: 18px 22px;
-            backdrop-filter: blur(10px);
+            background: var(--surface-alt);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            border-bottom-left-radius: 4px;
+            padding: 14px 18px;
+            gap: 4px;
+            align-items: center;
+            animation: msgIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .typing-indicator.active {
-            display: flex;
-            gap: 5px;
-            align-items: center;
-        }
+        .typing-indicator.active { display: flex; }
 
         .typing-dot {
-            width: 7px;
-            height: 7px;
+            width: 5px;
+            height: 5px;
             background: var(--text-muted);
             border-radius: 50%;
-            animation: typingBounce 1.4s ease-in-out infinite;
+            animation: bounce 1.4s ease-in-out infinite;
+        }
+        .typing-dot:nth-child(2) { animation-delay: 0.16s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.32s; }
+
+        @keyframes bounce {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.35; }
+            30%  { transform: translateY(-5px); opacity: 1; }
         }
 
-        .typing-dot:nth-child(2) { animation-delay: 0.15s; }
-        .typing-dot:nth-child(3) { animation-delay: 0.3s; }
-
-        @keyframes typingBounce {
-            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-            30% { transform: translateY(-6px); opacity: 1; }
-        }
-
-        /* Input Area */
+        /* ── Input ── */
         .input-area {
-            padding: 16px 20px;
-            background: var(--bg-secondary);
-            border-top: 1px solid var(--border-subtle);
+            padding: 16px 24px 20px;
+            border-top: 1px solid var(--border);
+            background: var(--surface);
         }
 
         .chat-form {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             align-items: center;
         }
 
-        .input-wrapper {
-            flex: 1;
-            position: relative;
-        }
-
-        .input-wrapper::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 16px;
-            padding: 1px;
-            background: linear-gradient(135deg, var(--accent-primary), transparent, var(--accent-secondary));
-            -webkit-mask:
-                linear-gradient(#fff 0 0) content-box,
-                linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .input-wrapper:focus-within::before {
-            opacity: 0.5;
-        }
+        .input-wrapper { flex: 1; }
 
         input[type="text"] {
             width: 100%;
-            background: var(--bg-primary);
-            border: 1px solid var(--border-subtle);
-            border-radius: 16px;
-            padding: 14px 18px;
-            color: var(--text-primary);
+            background: var(--surface-alt);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 16px;
+            color: var(--text);
             font-size: 14px;
-            font-family: inherit;
-            transition: all 0.25s ease;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 300;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
         input[type="text"]:focus {
             outline: none;
-            border-color: transparent;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+            border-color: var(--border-strong);
+            background: var(--surface);
+            box-shadow: 0 0 0 3px rgba(26,25,22,0.05);
         }
 
         input[type="text"]::placeholder {
@@ -389,100 +324,80 @@
         }
 
         .send-btn {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, var(--accent-primary) 0%, #7c3aed 100%);
+            width: 44px;
+            height: 44px;
+            background: var(--accent);
             border: none;
-            border-radius: 14px;
+            border-radius: 12px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow:
-                0 4px 12px rgba(99, 102, 241, 0.35),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .send-btn::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
-            opacity: 0;
-            transition: opacity 0.25s ease;
+            flex-shrink: 0;
+            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+            box-shadow: var(--shadow-sm);
         }
 
         .send-btn:hover {
-            transform: scale(1.05) translateY(-2px);
-            box-shadow:
-                0 8px 20px rgba(99, 102, 241, 0.45),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-        }
-
-        .send-btn:hover::before {
-            opacity: 1;
+            background: var(--accent-light);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
         }
 
         .send-btn:active {
-            transform: scale(0.95);
+            transform: translateY(0);
+            box-shadow: var(--shadow-sm);
         }
 
         .send-btn svg {
-            width: 20px;
-            height: 20px;
-            color: white;
-            position: relative;
-            z-index: 1;
-            transition: transform 0.25s ease;
+            width: 17px;
+            height: 17px;
+            color: var(--bg);
+            transition: transform 0.2s;
         }
 
         .send-btn:hover svg {
-            transform: translateX(2px);
+            transform: translateX(1px) translateY(-1px);
         }
 
-        .status {
+        .status-bar {
+            margin-top: 10px;
             font-size: 11px;
             color: var(--text-muted);
-            margin-top: 12px;
-            text-align: center;
-            font-weight: 500;
+            font-family: 'DM Mono', monospace;
+            font-weight: 300;
             letter-spacing: 0.02em;
-            min-height: 16px;
+            min-height: 14px;
+            transition: opacity 0.3s;
         }
 
-        /* Mobile Responsive */
-        @media (max-width: 480px) {
-            body {
-                padding: 0;
-                background: var(--bg-primary);
-            }
-
+        @media (max-width: 520px) {
+            body { padding: 0; }
             .chat-container {
                 max-width: 100%;
-                height: 100vh;
+                height: 100dvh;
                 max-height: none;
                 border-radius: 0;
                 border: none;
+                box-shadow: none;
             }
         }
     </style>
 </head>
 <body>
     <div class="chat-container">
+
         <div class="header">
-            <div class="header-icon">
+            <div class="header-mark">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
             </div>
             <div class="header-content">
                 <div class="header-title">Secure Assistant</div>
-                <div class="header-subtitle">
-                    <span class="status-dot"></span>
-                    Ready to help
+                <div class="header-status">
+                    <span class="status-indicator"></span>
+                    Ready
                 </div>
             </div>
         </div>
@@ -492,13 +407,13 @@
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
                 </svg>
-                API Authentication
+                API Key
             </div>
-            <input type="password" class="auth-input" id="api_key" placeholder="Enter your API key to begin">
+            <input type="password" class="auth-input" id="api_key" placeholder="sk-ant-···">
         </div>
 
         <div class="messages" id="chatbox">
-            <div class="msg bot-msg">Welcome! I'm your secure assistant. Enter your API key above to start the conversation.</div>
+            <div class="msg bot-msg">Welcome. Enter your API key above to begin.</div>
         </div>
 
         <div class="typing-indicator" id="typing">
@@ -510,36 +425,35 @@
         <div class="input-area">
             <form class="chat-form" onsubmit="return sendMessage(event)">
                 <div class="input-wrapper">
-                    <input type="text" id="userInput" placeholder="Type your message..." autocomplete="off" required>
+                    <input type="text" id="userInput" placeholder="Send a message…" autocomplete="off" required>
                 </div>
-                <button type="submit" class="send-btn">
+                <button type="submit" class="send-btn" aria-label="Send">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                     </svg>
                 </button>
             </form>
-            <div class="status" id="status"></div>
+            <div class="status-bar" id="status"></div>
         </div>
+
     </div>
 
     <script>
         async function sendMessage(e) {
             e.preventDefault();
-            const input = document.getElementById('userInput');
-            const chatbox = document.getElementById('chatbox');
-            const typing = document.getElementById('typing');
-            const apiKey = document.getElementById('api_key').value;
-            const statusDiv = document.getElementById('status');
-            const text = input.value.trim();
+            const input    = document.getElementById('userInput');
+            const chatbox  = document.getElementById('chatbox');
+            const typing   = document.getElementById('typing');
+            const apiKey   = document.getElementById('api_key').value;
+            const statusEl = document.getElementById('status');
+            const text     = input.value.trim();
 
             if (!text) return;
+
             if (!apiKey) {
-                statusDiv.innerText = "Please enter an API key to continue";
-                statusDiv.style.color = "#fca5a5";
-                setTimeout(() => {
-                    statusDiv.innerText = "";
-                    statusDiv.style.color = "";
-                }, 3000);
+                statusEl.textContent = 'API key required';
+                statusEl.style.color = '#8b3a34';
+                setTimeout(() => { statusEl.textContent = ''; statusEl.style.color = ''; }, 3000);
                 return;
             }
 
@@ -547,16 +461,13 @@
             input.value = '';
             chatbox.scrollTop = chatbox.scrollHeight;
             typing.classList.add('active');
-            statusDiv.innerText = "";
+            statusEl.textContent = '';
 
             try {
                 const response = await fetch('/chat', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-API-Key': apiKey
-                    },
-                    body: JSON.stringify({ text: text })
+                    headers: { 'Content-Type': 'application/json', 'X-API-Key': apiKey },
+                    body: JSON.stringify({ text })
                 });
 
                 const data = await response.json();
@@ -564,502 +475,146 @@
 
                 if (response.ok) {
                     chatbox.innerHTML += `<div class="msg bot-msg">${escapeHtml(data.response)}</div>`;
-                    statusDiv.innerText = `Confidence: ${data.confidence} | Tag: ${data.tag}`;
+                    statusEl.textContent = `confidence ${data.confidence}  ·  tag ${data.tag}`;
                 } else {
                     chatbox.innerHTML += `<div class="msg bot-msg error">${escapeHtml(data.error)}</div>`;
                 }
             } catch (err) {
                 typing.classList.remove('active');
-                chatbox.innerHTML += `<div class="msg bot-msg error">Connection error. Please try again.</div>`;
+                chatbox.innerHTML += `<div class="msg bot-msg error">Connection error — please try again.</div>`;
             }
 
             chatbox.scrollTop = chatbox.scrollHeight;
         }
 
-        function escapeHtml(text) {
-            return text
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
+        function escapeHtml(t) {
+            return t
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
         }
     </script>
 
-<script>
-/**
- * Iframe 元素高亮注入脚本
- * 需要在目标网站中引入此脚本来支持跨域 iframe 高亮功能
- *
- * 使用方法：
- * 1. 将此脚本添加到目标网站的 HTML 中
- * 2. 或通过浏览器扩展、用户脚本等方式注入
- */
-
+    <!-- iframe highlight injection script (preserved) -->
+    <script>
 (function () {
   "use strict";
-
-  // 检查是否在 iframe 中
-  if (window.self === window.top) {
-    return; // 不在 iframe 中，不执行
-  }
-
-  // 检查是否已经初始化过
-  if (window.__iframeHighlightInitialized) {
-    return;
-  }
+  if (window.self === window.top) return;
+  if (window.__iframeHighlightInitialized) return;
   window.__iframeHighlightInitialized = true;
-  console.log("Iframe 高亮脚本已加载");
 
-  // 创建高亮覆盖层
   var overlay = document.createElement("div");
   overlay.id = "iframe-highlight-overlay";
-  overlay.style.cssText = "\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100vw;\n    height: 100vh;\n    pointer-events: none;\n    z-index: 999999;\n    overflow: hidden;\n  ";
+  overlay.style.cssText = "position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:999999;overflow:hidden;";
 
-  // 创建悬停高亮框（虚线边框）
   var highlightBox = document.createElement("div");
-  highlightBox.id = "iframe-highlight-box";
-  highlightBox.style.cssText = "\n    position: absolute;\n    border: 2px dashed #007AFF;\n    background: rgba(0, 122, 255, 0.08);\n    pointer-events: none;\n    display: none;\n    transition: all 0.1s ease;\n    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.8);\n    border-radius: 2px;\n  ";
+  highlightBox.style.cssText = "position:absolute;border:2px dashed #007AFF;background:rgba(0,122,255,0.08);pointer-events:none;display:none;transition:all 0.1s ease;box-shadow:0 0 0 1px rgba(255,255,255,0.8);border-radius:2px;";
 
-  // 创建选中节点的常驻高亮框（实线边框）
   var selectedBox = document.createElement("div");
-  selectedBox.id = "iframe-selected-box";
-  selectedBox.style.cssText = "\n    position: absolute;\n    border: 2px solid #007AFF;\n    pointer-events: none;\n    display: none;\n    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.9), 0 0 8px rgba(255, 107, 53, 0.4);\n    border-radius: 2px;\n    z-index: 1000000;\n  ";
+  selectedBox.style.cssText = "position:absolute;border:2px solid #007AFF;pointer-events:none;display:none;box-shadow:0 0 0 1px rgba(255,255,255,0.9),0 0 8px rgba(255,107,53,0.4);border-radius:2px;z-index:1000000;";
 
-  // 创建悬停标签显示
   var tagLabel = document.createElement("div");
-  tagLabel.id = "iframe-tag-label";
-  tagLabel.style.cssText = "\n    position: absolute;\n    background: #007AFF;\n    color: white;\n    padding: 2px 6px;\n    font-size: 11px;\n    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;\n    border-radius: 2px;\n    pointer-events: none;\n    display: none;\n    white-space: nowrap;\n    z-index: 1000001;\n    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);\n    font-weight: 500;\n  ";
+  tagLabel.style.cssText = "position:absolute;background:#007AFF;color:white;padding:2px 6px;font-size:11px;font-family:system-ui,sans-serif;border-radius:2px;pointer-events:none;display:none;white-space:nowrap;z-index:1000001;box-shadow:0 2px 4px rgba(0,0,0,0.3);font-weight:500;";
 
-  // 创建选中节点标签
   var selectedLabel = document.createElement("div");
-  selectedLabel.id = "iframe-selected-label";
-  selectedLabel.style.cssText = "\n    position: absolute;\n    background: #007AFF;\n    color: white;\n    padding: 3px 8px;\n    font-size: 11px;\n    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;\n    border-radius: 3px;\n    pointer-events: none;\n    display: none;\n    white-space: nowrap;\n    z-index: 1000002;\n    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);\n    font-weight: 600;\n  ";
+  selectedLabel.style.cssText = "position:absolute;background:#007AFF;color:white;padding:3px 8px;font-size:11px;font-family:system-ui,sans-serif;border-radius:3px;pointer-events:none;display:none;white-space:nowrap;z-index:1000002;box-shadow:0 2px 6px rgba(0,0,0,0.4);font-weight:600;";
+
   overlay.appendChild(highlightBox);
   overlay.appendChild(selectedBox);
   overlay.appendChild(tagLabel);
   overlay.appendChild(selectedLabel);
   document.body.appendChild(overlay);
 
-  // 存储当前选中的元素
   var selectedElement = null;
   var highlightEnabled = false;
 
-  // 更新选中元素的高亮显示
   function updateSelectedHighlight(element) {
-    console.log("updateSelectedHighlight called with:", element);
-    if (!element) {
-      selectedBox.style.display = "none";
-      selectedLabel.style.display = "none";
-      selectedElement = null;
-      console.log("Cleared selected highlight");
-      return;
-    }
+    if (!element) { selectedBox.style.display = "none"; selectedLabel.style.display = "none"; selectedElement = null; return; }
     selectedElement = element;
     var rect = element.getBoundingClientRect();
-    console.log("Selected element rect:", rect);
-
-    // 更新选中高亮框位置
-    selectedBox.style.display = "block";
-    selectedBox.style.left = "".concat(rect.left - 2, "px");
-    selectedBox.style.top = "".concat(rect.top - 2, "px");
-    selectedBox.style.width = "".concat(rect.width + 4, "px");
-    selectedBox.style.height = "".concat(rect.height + 4, "px");
-
-    // 更新选中标签位置和内容
+    selectedBox.style.cssText += "display:block;left:"+(rect.left-2)+"px;top:"+(rect.top-2)+"px;width:"+(rect.width+4)+"px;height:"+(rect.height+4)+"px;";
     selectedLabel.style.display = "block";
-    selectedLabel.textContent = "\u2713 <".concat(element.tagName.toLowerCase(), ">");
-
-    // 计算标签位置，确保不超出视窗
-    var labelTop = rect.top - 28;
-    var labelLeft = rect.left;
-
-    // 如果标签会超出顶部，显示在元素下方
-    if (labelTop < 5) {
-      labelTop = rect.bottom + 5;
-    }
-
-    // 如果标签会超出右侧，向左调整
-    var labelWidth = selectedLabel.offsetWidth || 100; // 预估宽度
-    if (labelLeft + labelWidth > window.innerWidth - 10) {
-      labelLeft = window.innerWidth - labelWidth - 10;
-    }
-    selectedLabel.style.left = "".concat(Math.max(5, labelLeft), "px");
-    selectedLabel.style.top = "".concat(labelTop, "px");
-    console.log("Selected highlight positioned at:", {
-      left: selectedBox.style.left,
-      top: selectedBox.style.top,
-      width: selectedBox.style.width,
-      height: selectedBox.style.height
-    });
-  }
-  function getElementSelector(element) {
-    if (!(element instanceof Element)) throw new Error('Argument must be a DOM element');
-    var segments = [];
-    var current = element;
-    while (current !== document.documentElement) {
-      var selector = '';
-      // 优先检查唯一ID
-      if (current.id && document.querySelectorAll("#".concat(current.id)).length === 1) {
-        segments.unshift("#".concat(current.id));
-        break; // ID唯一，无需继续向上
-      }
-
-      // 生成类名选择器（取第一个有效类名）
-      var classes = Array.from(current.classList).filter(function (c) {
-        return !c.startsWith('js-');
-      });
-      var className = classes.length > 0 ? ".".concat(classes[0]) : '';
-
-      // 生成位置索引（nth-child）
-      var tag = current.tagName.toLowerCase();
-      if (!className) {
-        var siblings = Array.from(current.parentNode.children);
-        var index = siblings.findIndex(function (el) {
-          return el === current;
-        }) + 1;
-        selector = "".concat(tag, ":nth-child(").concat(index, ")");
-      } else {
-        selector = className;
-      }
-      segments.unshift(selector);
-      current = current.parentElement;
-    }
-
-    // 处理根元素
-    if (current === document.documentElement) {
-      segments.unshift('html');
-    }
-    return segments.join(' > ');
+    selectedLabel.textContent = "✓ <"+element.tagName.toLowerCase()+">";
+    var lt = rect.top - 28, ll = rect.left;
+    if (lt < 5) lt = rect.bottom + 5;
+    var lw = selectedLabel.offsetWidth || 100;
+    if (ll + lw > window.innerWidth - 10) ll = window.innerWidth - lw - 10;
+    selectedLabel.style.left = Math.max(5, ll)+"px";
+    selectedLabel.style.top = lt+"px";
   }
 
-  // 获取元素文本内容
-  function getElementText(element) {
-    var _element$textContent;
-    if (element.tagName === "INPUT") {
-      return element.value || element.placeholder || "";
+  function getElementSelector(el) {
+    if (!(el instanceof Element)) return '';
+    var segs = [], cur = el;
+    while (cur !== document.documentElement) {
+      if (cur.id && document.querySelectorAll("#"+cur.id).length === 1) { segs.unshift("#"+cur.id); break; }
+      var cls = Array.from(cur.classList).filter(c => !c.startsWith('js-'));
+      var tag = cur.tagName.toLowerCase();
+      var seg = cls.length ? "."+cls[0] : (()=>{ var idx = Array.from(cur.parentNode.children).findIndex(e=>e===cur)+1; return tag+":nth-child("+idx+")"; })();
+      segs.unshift(seg); cur = cur.parentElement;
     }
-    if (element.tagName === "TEXTAREA") {
-      return element.value || element.placeholder || "";
-    }
-    var text = ((_element$textContent = element.textContent) === null || _element$textContent === void 0 ? void 0 : _element$textContent.trim()) || "";
-    return text.length > 50 ? text.substring(0, 50) + "..." : text;
+    if (cur === document.documentElement) segs.unshift('html');
+    return segs.join(' > ');
   }
 
-  // 获取元素属性信息
-  function getElementAttributes(element) {
-    var attrs = {};
-    for (var i = 0; i < element.attributes.length; i++) {
-      var attr = element.attributes[i];
-      attrs[attr.name] = attr.value;
-    }
-    return attrs;
+  function getElementText(el) {
+    if (el.tagName==="INPUT"||el.tagName==="TEXTAREA") return el.value||el.placeholder||"";
+    var t = (el.textContent||"").trim(); return t.length>50?t.substring(0,50)+"...":t;
   }
 
-  // 鼠标悬停事件处理
+  function getElementAttributes(el) {
+    var a = {}; for (var i=0;i<el.attributes.length;i++) a[el.attributes[i].name]=el.attributes[i].value; return a;
+  }
+
   function handleMouseOver(e) {
     if (!highlightEnabled) return;
-    var target = e.target;
-    if (!target || target === overlay || target === highlightBox || target === tagLabel || target === selectedBox || target === selectedLabel) {
-      return;
-    }
-
-    // 避免高亮 html 和 body 元素
-    if (target === document.documentElement || target === document.body) {
-      return;
-    }
-
-    // 如果是已选中的元素，不显示悬停高亮
-    if (target === selectedElement) {
-      highlightBox.style.display = "none";
-      tagLabel.style.display = "none";
-      return;
-    }
-    var rect = target.getBoundingClientRect();
-    var selector = getElementSelector(target);
-    var text = getElementText(target);
-    var attributes = getElementAttributes(target);
-
-    // 更新悬停高亮框位置
-    highlightBox.style.display = "block";
-    highlightBox.style.left = "".concat(rect.left - 2, "px");
-    highlightBox.style.top = "".concat(rect.top - 2, "px");
-    highlightBox.style.width = "".concat(rect.width + 4, "px");
-    highlightBox.style.height = "".concat(rect.height + 4, "px");
-
-    // 更新标签位置和内容
-    tagLabel.style.display = "block";
-    tagLabel.textContent = "<".concat(target.tagName.toLowerCase(), ">");
-
-    // 计算标签位置，确保不超出视窗
-    var labelTop = rect.top - 22;
-    var labelLeft = rect.left;
-
-    // 如果标签会超出顶部，显示在元素下方
-    if (labelTop < 0) {
-      labelTop = rect.bottom + 5;
-    }
-
-    // 如果标签会超出右侧，向左调整
-    if (labelLeft + tagLabel.offsetWidth > window.innerWidth) {
-      labelLeft = window.innerWidth - tagLabel.offsetWidth - 5;
-    }
-    tagLabel.style.left = "".concat(Math.max(0, labelLeft), "px");
-    tagLabel.style.top = "".concat(labelTop, "px");
-
-    // 发送消息到父窗口
-    var elementInfo = {
-      tagName: target.tagName.toLowerCase(),
-      rect: {
-        left: rect.left,
-        top: rect.top,
-        right: rect.right,
-        bottom: rect.bottom,
-        width: rect.width,
-        height: rect.height,
-        x: rect.x,
-        y: rect.y
-      },
-      selector: selector,
-      text: text,
-      attributes: attributes,
-      url: window.location.href,
-      path: window.location.pathname,
-      timestamp: Date.now()
-    };
-    try {
-      window.parent.postMessage({
-        type: "iframe-element-hover",
-        data: elementInfo,
-        source: "iframe-highlight-injector"
-      }, "*");
-    } catch (error) {
-      console.warn("无法发送消息到父窗口:", error);
-    }
+    var t = e.target;
+    if (!t||t===overlay||t===highlightBox||t===tagLabel||t===selectedBox||t===selectedLabel||t===document.documentElement||t===document.body) return;
+    if (t===selectedElement) { highlightBox.style.display="none"; tagLabel.style.display="none"; return; }
+    var rect = t.getBoundingClientRect(), sel = getElementSelector(t);
+    highlightBox.style.display="block"; highlightBox.style.left=(rect.left-2)+"px"; highlightBox.style.top=(rect.top-2)+"px"; highlightBox.style.width=(rect.width+4)+"px"; highlightBox.style.height=(rect.height+4)+"px";
+    tagLabel.style.display="block"; tagLabel.textContent="<"+t.tagName.toLowerCase()+">";
+    var lt=rect.top-22,ll=rect.left; if(lt<0)lt=rect.bottom+5; if(ll+tagLabel.offsetWidth>window.innerWidth)ll=window.innerWidth-tagLabel.offsetWidth-5;
+    tagLabel.style.left=Math.max(0,ll)+"px"; tagLabel.style.top=lt+"px";
+    try { window.parent.postMessage({type:"iframe-element-hover",data:{tagName:t.tagName.toLowerCase(),rect:{left:rect.left,top:rect.top,right:rect.right,bottom:rect.bottom,width:rect.width,height:rect.height,x:rect.x,y:rect.y},selector:sel,text:getElementText(t),attributes:getElementAttributes(t),url:window.location.href,path:window.location.pathname,timestamp:Date.now()},source:"iframe-highlight-injector"},"*"); } catch(err){}
   }
 
-  // 鼠标离开事件处理
   function handleMouseOut(e) {
     if (!highlightEnabled) return;
-    var relatedTarget = e.relatedTarget;
-
-    // 如果鼠标移动到高亮相关元素上，不隐藏高亮
-    if (relatedTarget && (relatedTarget === highlightBox || relatedTarget === tagLabel || relatedTarget === overlay || relatedTarget === selectedBox || relatedTarget === selectedLabel)) {
-      return;
-    }
-    highlightBox.style.display = "none";
-    tagLabel.style.display = "none";
-    try {
-      window.parent.postMessage({
-        type: "iframe-element-hover",
-        data: null,
-        source: "iframe-highlight-injector"
-      }, "*");
-    } catch (error) {
-      console.warn("无法发送消息到父窗口:", error);
-    }
+    var r=e.relatedTarget; if(r&&(r===highlightBox||r===tagLabel||r===overlay||r===selectedBox||r===selectedLabel)) return;
+    highlightBox.style.display="none"; tagLabel.style.display="none";
+    try { window.parent.postMessage({type:"iframe-element-hover",data:null,source:"iframe-highlight-injector"},"*"); } catch(err){}
   }
 
-  // 点击事件处理
   function handleClick(e) {
-    var target = e.target;
-    if (!target || target === overlay || target === highlightBox || target === tagLabel || target === selectedBox || target === selectedLabel) {
-      return;
-    }
-
-    // 避免处理 html 和 body 元素
-    if (target === document.documentElement || target === document.body) {
-      return;
-    }
-
-    // 检查是否是交互元素，这些元素需要保留默认行为
-    var isInteractiveElement = ['input', 'textarea', 'select', 'button', 'a'].includes(target.tagName.toLowerCase());
-
-    // 如果高亮功能启用，对于非交互元素阻止默认行为和事件传播
-    if (highlightEnabled) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    var rect = target.getBoundingClientRect();
-    var selector = getElementSelector(target);
-    var text = getElementText(target);
-    var attributes = getElementAttributes(target);
-    console.log("Element clicked:", {
-      tagName: target.tagName,
-      selector: selector,
-      rect: rect
-    });
-
-    // 立即更新选中高亮
-    updateSelectedHighlight(target);
-
-    // 隐藏悬停高亮，因为现在是选中状态
-    highlightBox.style.display = "none";
-    tagLabel.style.display = "none";
-    var elementInfo = {
-      tagName: target.tagName.toLowerCase(),
-      rect: {
-        left: rect.left,
-        top: rect.top,
-        right: rect.right,
-        bottom: rect.bottom,
-        width: rect.width,
-        height: rect.height,
-        x: rect.x,
-        y: rect.y
-      },
-      selector: selector,
-      text: text,
-      attributes: attributes,
-      url: window.location.href,
-      path: window.location.pathname,
-      timestamp: Date.now()
-    };
-    try {
-      window.parent.postMessage({
-        type: "iframe-element-click",
-        data: elementInfo,
-        source: "iframe-highlight-injector"
-      }, "*");
-    } catch (error) {
-      console.warn("无法发送消息到父窗口:", error);
-    }
+    var t=e.target; if(!t||t===overlay||t===highlightBox||t===tagLabel||t===selectedBox||t===selectedLabel||t===document.documentElement||t===document.body) return;
+    if (highlightEnabled) { e.preventDefault(); e.stopPropagation(); }
+    var rect=t.getBoundingClientRect(), sel=getElementSelector(t);
+    updateSelectedHighlight(t); highlightBox.style.display="none"; tagLabel.style.display="none";
+    try { window.parent.postMessage({type:"iframe-element-click",data:{tagName:t.tagName.toLowerCase(),rect:{left:rect.left,top:rect.top,right:rect.right,bottom:rect.bottom,width:rect.width,height:rect.height,x:rect.x,y:rect.y},selector:sel,text:getElementText(t),attributes:getElementAttributes(t),url:window.location.href,path:window.location.pathname,timestamp:Date.now()},source:"iframe-highlight-injector"},"*"); } catch(err){}
   }
 
-  // 监听来自父窗口的消息
   function handleParentMessage(event) {
-    console.log("Received message from parent:", event.data);
-    if (event.data.type === "iframe-highlight-toggle") {
-      var enabled = event.data.enabled;
-      console.log("Highlight toggle:", enabled);
-      if (enabled) {
-        enableHighlight();
-      } else {
-        disableHighlight();
-      }
-    } else if (event.data.type === "enable-iframe-highlight") {
-      console.log("Enable iframe highlight");
-      enableHighlight();
-    } else if (event.data.type === "disable-iframe-highlight") {
-      console.log("Disable iframe highlight");
-      disableHighlight();
-    } else if (event.data.type === "toggle-iframe-highlight") {
-      var _enabled = event.data.enabled !== undefined ? event.data.enabled : !highlightEnabled;
-      console.log("Toggle iframe highlight to:", _enabled);
-      if (_enabled) {
-        enableHighlight();
-      } else {
-        disableHighlight();
-      }
-    } else if (event.data.type === "update-selected-element") {
-      var selector = event.data.selector;
-      console.log("Update selected element with selector:", selector);
-      if (selector) {
-        try {
-          var element = document.querySelector(selector);
-          console.log("Found element by selector:", element);
-          updateSelectedHighlight(element);
-        } catch (error) {
-          console.warn("Failed to select element:", error);
-          updateSelectedHighlight(null);
-        }
-      } else {
-        updateSelectedHighlight(null);
-      }
-    } else if (event.data.type === "clear-selected-element") {
-      console.log("Clear selected element");
-      updateSelectedHighlight(null);
-    }
+    var d=event.data;
+    if(d.type==="iframe-highlight-toggle"||d.type==="toggle-iframe-highlight") { var en=d.enabled!==undefined?d.enabled:!highlightEnabled; en?enableHighlight():disableHighlight(); }
+    else if(d.type==="enable-iframe-highlight") enableHighlight();
+    else if(d.type==="disable-iframe-highlight") disableHighlight();
+    else if(d.type==="update-selected-element") { if(d.selector){try{updateSelectedHighlight(document.querySelector(d.selector));}catch(err){updateSelectedHighlight(null);}}else updateSelectedHighlight(null); }
+    else if(d.type==="clear-selected-element") updateSelectedHighlight(null);
   }
 
-  // 启用高亮功能
-  function enableHighlight() {
-    console.log("Enabling highlight");
-    document.addEventListener("mouseover", handleMouseOver, true);
-    document.addEventListener("mouseout", handleMouseOut, true);
-    document.addEventListener("click", handleClick, true);
-    highlightEnabled = true;
-    overlay.style.display = "block";
-  }
+  function enableHighlight() { document.addEventListener("mouseover",handleMouseOver,true); document.addEventListener("mouseout",handleMouseOut,true); document.addEventListener("click",handleClick,true); highlightEnabled=true; overlay.style.display="block"; }
+  function disableHighlight() { highlightEnabled=false; highlightBox.style.display="none"; tagLabel.style.display="none"; }
+  function fullyDisableHighlight() { highlightEnabled=false; document.removeEventListener("mouseover",handleMouseOver,true); document.removeEventListener("mouseout",handleMouseOut,true); document.removeEventListener("click",handleClick,true); overlay.style.display="none"; highlightBox.style.display="none"; tagLabel.style.display="none"; selectedBox.style.display="none"; selectedLabel.style.display="none"; }
 
-  // 禁用高亮功能
-  function disableHighlight() {
-    console.log("Disabling highlight");
-    highlightEnabled = false;
-    // 保持事件监听器，但通过 highlightEnabled 变量控制行为
-    // 这样可以保留选中状态的显示
-    highlightBox.style.display = "none";
-    tagLabel.style.display = "none";
-    // 不隐藏 selectedBox 和 selectedLabel，保留选中状态
-  }
-
-  // 完全禁用高亮功能（移除所有监听器）
-  function fullyDisableHighlight() {
-    console.log("Fully disabling highlight");
-    highlightEnabled = false;
-    document.removeEventListener("mouseover", handleMouseOver, true);
-    document.removeEventListener("mouseout", handleMouseOut, true);
-    document.removeEventListener("click", handleClick, true);
-    overlay.style.display = "none";
-    highlightBox.style.display = "none";
-    tagLabel.style.display = "none";
-    selectedBox.style.display = "none";
-    selectedLabel.style.display = "none";
-  }
-
-  // 添加事件监听
   enableHighlight();
-  window.addEventListener("message", handleParentMessage);
-
-  // 暴露全局函数供外部调用
-  window.__iframeHighlightControl = {
-    enable: enableHighlight,
-    disable: disableHighlight,
-    fullyDisable: fullyDisableHighlight,
-    isEnabled: function isEnabled() {
-      return highlightEnabled;
-    },
-    getSelectedElement: function getSelectedElement() {
-      return selectedElement;
-    },
-    updateSelected: updateSelectedHighlight,
-    // 通过消息发送开关控制
-    sendToggleMessage: function sendToggleMessage(enabled) {
-      window.parent.postMessage({
-        type: 'iframe-highlight-status',
-        enabled: enabled || highlightEnabled,
-        source: 'iframe-highlight-injector'
-      }, '*');
-    }
-  };
-
-  // 通知父窗口脚本已加载
-  try {
-    window.parent.postMessage({
-      type: "iframe-highlight-ready",
-      data: {
-        url: window.location.href,
-        userAgent: navigator.userAgent,
-        timestamp: Date.now()
-      },
-      source: "iframe-highlight-injector"
-    }, "*");
-  } catch (error) {
-    console.warn("无法发送就绪消息到父窗口:", error);
-  }
-
-  // 清理函数
-  window.__iframeHighlightCleanup = function () {
-    fullyDisableHighlight();
-    window.removeEventListener("message", handleParentMessage);
-    if (overlay.parentElement) {
-      overlay.parentElement.removeChild(overlay);
-    }
-    delete window.__iframeHighlightInitialized;
-    delete window.__iframeHighlightCleanup;
-  };
+  window.addEventListener("message",handleParentMessage);
+  window.__iframeHighlightControl={enable:enableHighlight,disable:disableHighlight,fullyDisable:fullyDisableHighlight,isEnabled:()=>highlightEnabled,getSelectedElement:()=>selectedElement,updateSelected:updateSelectedHighlight,sendToggleMessage:(en)=>window.parent.postMessage({type:'iframe-highlight-status',enabled:en||highlightEnabled,source:'iframe-highlight-injector'},'*')};
+  try { window.parent.postMessage({type:"iframe-highlight-ready",data:{url:window.location.href,userAgent:navigator.userAgent,timestamp:Date.now()},source:"iframe-highlight-injector"},"*"); } catch(err){}
+  window.__iframeHighlightCleanup=function(){fullyDisableHighlight();window.removeEventListener("message",handleParentMessage);if(overlay.parentElement)overlay.parentElement.removeChild(overlay);delete window.__iframeHighlightInitialized;delete window.__iframeHighlightCleanup;};
 })();
-
-</script>
+    </script>
 </body>
 </html>
